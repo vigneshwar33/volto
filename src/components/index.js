@@ -135,6 +135,8 @@ export EditHeroImageLeftBlock from '@plone/volto/components/manage/Blocks/HeroIm
 export ViewHeroImageLeftBlock from '@plone/volto/components/manage/Blocks/HeroImageLeft/View';
 export EditMapBlock from '@plone/volto/components/manage/Blocks/Maps/Edit';
 export EditHTMLBlock from '@plone/volto/components/manage/Blocks/HTML/Edit';
+export EditFormBlock from '@plone/volto/components/manage/Blocks/Form/Edit';
+
 
 export ViewDescriptionBlock from '@plone/volto/components/manage/Blocks/Description/View';
 export ViewTitleBlock from '@plone/volto/components/manage/Blocks/Title/View';
@@ -145,6 +147,7 @@ export ViewListingBlock from '@plone/volto/components/manage/Blocks/Listing/View
 export ViewVideoBlock from '@plone/volto/components/manage/Blocks/Video/View';
 export ViewMapBlock from '@plone/volto/components/manage/Blocks/Maps/View';
 export ViewHTMLBlock from '@plone/volto/components/manage/Blocks/HTML/View';
+export ViewFormBlock from '@plone/volto/components/manage/Blocks/Form/View';
 
 export ListingBlockBody from '@plone/volto/components/manage/Blocks/Listing/ListingBody';
 export ListingBlockData from '@plone/volto/components/manage/Blocks/Listing/ListingData';
@@ -156,3 +159,4 @@ export ImageSidebar from '@plone/volto/components/manage/Blocks/Image/ImageSideb
 export MapsSidebar from '@plone/volto/components/manage/Blocks/Maps/MapsSidebar';
 export VideoSidebar from '@plone/volto/components/manage/Blocks/Video/VideoSidebar';
 export LeadImageSidebar from '@plone/volto/components/manage/Blocks/LeadImage/LeadImageSidebar';
+export FormSidebar from '@plone/volto/components/manage/Blocks/Form/FormSidebar';
