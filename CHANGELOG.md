@@ -7,6 +7,8 @@
 ### Feature
 
 - Added default Export for the QuerystringWidget for the ListingBlock @steffenri
+- Added toast notifications for form errors @nzambello
+- Added italian translations and translated array, token and select widget. @giuliaghisini
 
 ### Bugfix
 
