@@ -24,6 +24,13 @@
 
 - Allow JSON API calls to made to third-party servers @tiberiuichim
 
+### Breaking
+
+### Feature
+
+- Added recurrence widget @giuliaghisini
+- Support loading additional reducers from the ``config.addonReducers`` key,
+  to allow addons to provide their own reducers @tiberiuichim
 ### Bugfix
 
 - Fix styling and use of csss classes in ``InlineForm.jsx`` @tiberiuichim
