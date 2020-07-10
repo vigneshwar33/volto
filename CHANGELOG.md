@@ -66,6 +66,8 @@
 
 - added export for ObjectBrowserWidget in component/index.js @giuliaghisini
 - Fixed duplicated items in SelectWidget and ArrayWidget @giuliaghisini
+- Fixed edit link in draft-js when link is selected from word-end to word-start @giuliaghisini
+- fixed duplicated items in SelectWidget and ArrayWidget @giuliaghisini
 - Update German translation @timo
 - Removed broken preview image in ContentsUploadModal if uploaded item is not an image. @giuliaghisini
 - Localized content upload modal last modified date @nzambello
