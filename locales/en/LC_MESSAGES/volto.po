@@ -379,7 +379,7 @@ msgstr ""
 #: components/manage/Contents/Contents
 #: components/manage/Contents/ContentsItem
 msgid "Cut"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: components/manage/Widgets/RecurrenceWidget/RecurrenceWidget
 msgid "Daily"
@@ -1061,7 +1061,7 @@ msgstr ""
 
 #: components/manage/Blocks/Maps/MapsSidebar
 msgid "No map selected"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: components/manage/Widgets/RecurrenceWidget/Occurences
 msgid "No occurences set"
@@ -2098,7 +2098,7 @@ msgstr ""
 
 #: error
 msgid "or try a different page."
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: components/manage/Widgets/RecurrenceWidget/Occurences
 msgid "others"
