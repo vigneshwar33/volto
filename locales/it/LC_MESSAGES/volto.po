@@ -2089,12 +2089,12 @@ msgstr "Più usati"
 
 #: components/manage/Contents/ContentsItem
 msgid "no workflow state"
-msgstr "Nessun stato di workflow>>>>>>> master"
+msgstr "Nessun stato di workflow"
 
 #: components/manage/Widgets/RecurrenceWidget/ByMonthDayField
 #: components/manage/Widgets/RecurrenceWidget/ByYearField
 msgid "of the month"
-msgstr "del mese======="
+msgstr "del mese"
 
 #: error
 msgid "or try a different page."
