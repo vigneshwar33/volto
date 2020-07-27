@@ -32,13 +32,15 @@ import { Portal } from 'react-portal';
 
 import { toast } from 'react-toastify';
 import { EditBlock, Icon, Field, Toast } from '@plone/volto/components';
+import { settings } from '~/config';
 import dragSVG from '@plone/volto/icons/drag.svg';
 
 import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
+  difference,
+  blockHasValue,
 } from '@plone/volto/helpers';
-import { difference } from '@plone/volto/helpers';
 
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
@@ -188,7 +190,7 @@ class Form extends Component {
             '@type': 'title',
           },
           [ids.text]: {
-            '@type': 'text',
+            '@type': settings.defaultBlockType,
           },
         };
       }
@@ -235,11 +237,7 @@ class Form extends Component {
   }
 
   hideHandler = (data) => {
-    return (
-      data['@type'] === 'text' &&
-      (!data.text ||
-        (data.text?.blocks?.length === 1 && data.text.blocks[0].text === ''))
-    );
+    return !blockHasValue(data);
   };
 
   /**
@@ -283,7 +281,7 @@ class Form extends Component {
           ...this.state.formData[blocksFieldname],
           [id]: value || null,
           [idTrailingBlock]: {
-            '@type': 'text',
+            '@type': settings.defaultBlockType,
           },
         },
         [blocksLayoutFieldname]: {
@@ -361,7 +359,7 @@ class Form extends Component {
               insert,
             ),
             id,
-            ...(type !== 'text' ? [idTrailingBlock] : []),
+            ...(type !== settings.defaultBlockType ? [idTrailingBlock] : []),
             ...this.state.formData[blocksLayoutFieldname].items.slice(insert),
           ],
         },
@@ -370,9 +368,9 @@ class Form extends Component {
           [id]: {
             '@type': type,
           },
-          ...(type !== 'text' && {
+          ...(type !== settings.defaultBlockType && {
             [idTrailingBlock]: {
-              '@type': 'text',
+              '@type': settings.defaultBlockType,
             },
           }),
         },
@@ -584,7 +582,7 @@ class Form extends Component {
       e.preventDefault();
     }
     if (e.key === 'Enter' && !disableEnter) {
-      this.onAddBlock('text', index + 1);
+      this.onAddBlock(settings.defaultBlockType, index + 1);
       e.preventDefault();
     }
   }
@@ -757,7 +755,11 @@ class Form extends Component {
                           {...provided.draggableProps}
                           className={`block-editor-${blocksDict[block]['@type']}`}
                         >
-                          <div style={{ position: 'relative' }}>
+                          <div
+                            style={{
+                              position: 'relative',
+                            }}
+                          >
                             <div
                               style={{
                                 visibility:

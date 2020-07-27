@@ -57,6 +57,7 @@ const withObjectBrowser = (WrappedComponent) =>
       overlay = null,
       propDataName = null,
       selectableTypes,
+      maximumSelectionSize,
     } = {}) =>
       this.setState({
         isObjectBrowserOpen: true,
@@ -66,6 +67,7 @@ const withObjectBrowser = (WrappedComponent) =>
         overlay,
         propDataName,
         selectableTypes,
+        maximumSelectionSize,
       });
 
     closeObjectBrowser = () => this.setState({ isObjectBrowserOpen: false });
@@ -79,7 +81,6 @@ const withObjectBrowser = (WrappedComponent) =>
             openObjectBrowser={this.openObjectBrowser}
             closeObjectBrowser={this.closeObjectBrowser}
           />
-
           <>
             <CSSTransition
               in={this.state.isObjectBrowserOpen && this.state.overlay}
@@ -112,6 +113,7 @@ const withObjectBrowser = (WrappedComponent) =>
                 onSelectItem={this.state.onSelectItem}
                 dataName={this.state.dataName}
                 selectableTypes={this.state.selectableTypes}
+                maximumSelectionSize={this.state.maximumSelectionSize}
               />
             </CSSTransition>
           </>
@@ -119,4 +121,5 @@ const withObjectBrowser = (WrappedComponent) =>
       );
     }
   };
+
 export default withObjectBrowser;
