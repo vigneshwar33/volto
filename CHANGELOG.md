@@ -1,21 +1,29 @@
 # Change Log
 
-## 7.2.2 (unreleased)
+## 7.3.1 (unreleased)
 
 ### Breaking
 
 ### Feature
 
 - Added Placeholder attribute to Textwidget and TextAreaWidget @iFlameing
+- Separate the Form.jsx state in its own component exposed as a context. This enables clean multi-block editing from other blocks, exposes the form state to widgets and many other advanced scenarios. @tiberiuichim
 
 ### Bugfix
 
 ### Internal
 
+## 7.3.0 (2020-07-26)
+
+### Feature
+
+- Add Placeholder attribute to Textwidget and TextAreaWidget @iFlameing
+- Make the default block type (currently draftjs text) configurable @tiberiuichim @silviubogan
+
+### Internal
+
 - Upgrade lodash dependency to 4.17.19 @tisto
-- Add a new blocks helper method, `getBlocks`. It simplifies using
-  `getBlocksFieldname` and `getBlocksLayoutFieldname` under a single method that
-  returns ordered pairs of `[blockid, blockvalue]` @tiberiuichim
+- Add a new blocks helper method, `getBlocks`. It simplifies using `getBlocksFieldname` and `getBlocksLayoutFieldname` under a single method that returns ordered pairs of `[blockid, blockvalue]` @tiberiuichim
 
 ## 7.2.1 (2020-07-16)
 

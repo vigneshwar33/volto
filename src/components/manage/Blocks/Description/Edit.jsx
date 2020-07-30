@@ -10,6 +10,8 @@ import { stateFromHTML } from 'draft-js-import-html';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames';
+import { settings } from '~/config';
+import { FormStateContext } from '@plone/volto/components/manage/Form/FormContext';
 
 const messages = defineMessages({
   description: {
@@ -38,7 +40,7 @@ class Edit extends Component {
    * @static
    */
   static propTypes = {
-    properties: PropTypes.objectOf(PropTypes.any).isRequired,
+    // properties: PropTypes.objectOf(PropTypes.any).isRequired,
     selected: PropTypes.bool.isRequired,
     block: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
@@ -49,6 +51,7 @@ class Edit extends Component {
     onFocusPreviousBlock: PropTypes.func.isRequired,
     onFocusNextBlock: PropTypes.func.isRequired,
   };
+  static contextType = FormStateContext;
 
   /**
    * Constructor
@@ -56,13 +59,14 @@ class Edit extends Component {
    * @param {Object} props Component properties
    * @constructs WysiwygEditor
    */
-  constructor(props) {
+  constructor(props, context) {
     super(props);
 
     if (!__SERVER__) {
       let editorState;
-      if (props.properties && props.properties.description) {
-        const contentState = stateFromHTML(props.properties.description);
+      const properties = context.contextData?.formData || {};
+      if (properties && properties.description) {
+        const contentState = stateFromHTML(properties.description);
         editorState = EditorState.createWithContent(contentState);
       } else {
         editorState = EditorState.createEmpty();
@@ -91,25 +95,26 @@ class Edit extends Component {
    * @param {Object} nextProps Next properties
    * @returns {undefined}
    */
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.properties.description &&
-      this.props.properties.description !== nextProps.properties.description &&
-      !this.state.focus
-    ) {
-      const contentState = stateFromHTML(nextProps.properties.description);
-      this.setState({
-        editorState: nextProps.properties.description
-          ? EditorState.createWithContent(contentState)
-          : EditorState.createEmpty(),
-      });
-    }
-
-    if (!this.props.selected && nextProps.selected) {
-      this.node.focus();
-      this.setState({ focus: true });
-    }
-  }
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   const properties = context.contextData?.formData || {};
+  //   if (
+  //     nextProps.properties.description &&
+  //     this.props.properties.description !== nextProps.properties.description &&
+  //     !this.state.focus
+  //   ) {
+  //     const contentState = stateFromHTML(nextProps.properties.description);
+  //     this.setState({
+  //       editorState: nextProps.properties.description
+  //         ? EditorState.createWithContent(contentState)
+  //         : EditorState.createEmpty(),
+  //     });
+  //   }
+  //
+  //   if (!this.props.selected && nextProps.selected) {
+  //     this.node.focus();
+  //     this.setState({ focus: true });
+  //   }
+  // }
 
   /**
    * Change handler
@@ -144,9 +149,9 @@ class Edit extends Component {
           editorState={this.state.editorState}
           blockRenderMap={extendedBlockRenderMap}
           handleReturn={() => {
-            this.props.onSelectBlock(
-              this.props.onAddBlock('text', this.props.index + 1),
-            );
+            this.props
+              .onAddBlock(settings.defaultBlockType, this.props.index + 1)
+              .then((id) => this.props.onSelectBlock(id));
             return 'handled';
           }}
           handleKeyCommand={(command, editorState) => {
