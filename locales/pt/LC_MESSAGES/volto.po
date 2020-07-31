@@ -890,7 +890,7 @@ msgstr "Os itens têm de ser únicos."
 
 #: components/manage/Preferences/PersonalPreferences
 msgid "Language"
-msgstr "Idioma"
+msgstr "Idioma<<<<<<< HEAD"
 
 #: components/manage/Widgets/RecurrenceWidget/WeekdayOfTheMonthIndexField
 msgid "Last"
@@ -1111,7 +1111,7 @@ msgstr "Sem fluxo de trabalho"
 #: components/manage/Contents/Contents
 #: components/manage/Contents/ContentsItem
 msgid "None"
-msgstr "Nenhum"
+msgstr "Nenhum<<<<<<< HEAD"
 
 #: components/manage/Controlpanels/DatabaseInformation
 msgid "Number of active objects"
@@ -1552,7 +1552,7 @@ msgstr "Especifique um vídeo youtube ou um URL de um repertório (playlist)"
 
 #: components/manage/Diff/Diff
 msgid "Split"
-msgstr "Dividir"
+msgstr "Dividir<<<<<<< HEAD"
 
 #: components/manage/Contents/Contents
 msgid "Start Date"
@@ -1936,7 +1936,7 @@ msgstr "Quem"
 
 #: components/manage/Workflow/Workflow
 msgid "Workflow updated."
-msgstr "Fluxo de trabalho actualizado."
+msgstr "Fluxo de trabalho actualizado.<<<<<<< HEAD"
 
 #: components/manage/Widgets/RecurrenceWidget/RecurrenceWidget
 msgid "Yearly"
@@ -2097,7 +2097,7 @@ msgstr "média"
 
 #: config/Blocks
 msgid "mostUsed"
-msgstr "maisUsado"
+msgstr "maisUsado<<<<<<< HEAD"
 
 #: components/manage/Contents/ContentsItem
 msgid "no workflow state"
@@ -2138,7 +2138,7 @@ msgstr ""
 
 #: error
 msgid "return to the site root"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 #: components/manage/Widgets/RecurrenceWidget/Utils
 msgid "rrule_and"

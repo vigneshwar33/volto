@@ -2106,7 +2106,7 @@ msgstr "média"
 
 #: config/Blocks
 msgid "mostUsed"
-msgstr "souvent utilisé"
+msgstr "souvent utilisé<<<<<<< HEAD"
 
 #: components/manage/Contents/ContentsItem
 msgid "no workflow state"
