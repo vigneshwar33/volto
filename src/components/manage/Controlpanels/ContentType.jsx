@@ -13,7 +13,7 @@ import { Button } from 'semantic-ui-react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { toast } from 'react-toastify';
 import { last, nth, join } from 'lodash';
-import { Error, Form, Icon, Toolbar, Toast } from '@plone/volto/components';
+import { Form, Icon, Toolbar, Toast } from '@plone/volto/components';
 import { getControlpanel, updateControlpanel } from '@plone/volto/actions';
 
 import saveSVG from '@plone/volto/icons/save.svg';
@@ -58,7 +58,10 @@ class ContentType extends Component {
     getControlpanel: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     parent: PropTypes.string.isRequired,
-    cpanelRequest: PropTypes.objectOf(PropTypes.any).isRequired,
+    updateRequest: PropTypes.shape({
+      loading: PropTypes.bool,
+      loaded: PropTypes.bool,
+    }).isRequired,
     controlpanel: PropTypes.shape({
       '@id': PropTypes.string,
       data: PropTypes.object,
@@ -85,12 +88,10 @@ class ContentType extends Component {
    */
   constructor(props) {
     super(props);
-
     this.state = {
       visual: false,
-      error: null,
+      isClient: false,
     };
-
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.form = React.createRef();
@@ -106,27 +107,22 @@ class ContentType extends Component {
   }
 
   /**
+   * Component did mount
+   * @method componentDidMount
+   * @returns {undefined}
+   */
+  componentDidMount() {
+    this.setState({ isClient: true });
+  }
+
+  /**
    * Component will receive props
    * @method componentWillReceiveProps
    * @param {Object} nextProps Next properties
    * @returns {undefined}
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
-    // Control Panel GET
-    if (
-      this.props.cpanelRequest.get.loading &&
-      nextProps.cpanelRequest.get.error
-    ) {
-      this.setState({
-        error: nextProps.cpanelRequest.get.error,
-      });
-    }
-
-    // Control Panel PATCH
-    if (
-      this.props.cpanelRequest.update.loading &&
-      nextProps.cpanelRequest.update.loaded
-    ) {
+    if (this.props.updateRequest.loading && nextProps.updateRequest.loaded) {
       toast.info(
         <Toast
           info
@@ -162,11 +158,6 @@ class ContentType extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    // Error
-    if (this.state.error) {
-      return <Error error={this.state.error} />;
-    }
-
     if (this.props.controlpanel) {
       let controlpanel = this.props.controlpanel;
       if (controlpanel?.data?.filter_content_types === false) {
@@ -199,45 +190,49 @@ class ContentType extends Component {
             pathname={this.props.pathname}
             visual={this.state.visual}
             hideActions
-            loading={this.props.cpanelRequest.update.loading}
+            loading={this.props.updateRequest.loading}
           />
-          <Portal node={__CLIENT__ && document.getElementById('toolbar')}>
-            <Toolbar
-              pathname={this.props.pathname}
-              hideDefaultViewButtons
-              inner={
-                <>
-                  <Button
-                    id="toolbar-save"
-                    className="save"
-                    aria-label={this.props.intl.formatMessage(messages.save)}
-                    onClick={() => this.form.current.onSubmit()}
-                    disabled={this.props.cpanelRequest.update.loading}
-                    loading={this.props.cpanelRequest.update.loading}
-                  >
-                    <Icon
-                      name={saveSVG}
-                      className="circled"
-                      size="30px"
-                      title={this.props.intl.formatMessage(messages.save)}
-                    />
-                  </Button>
-                  <Button
-                    className="cancel"
-                    aria-label={this.props.intl.formatMessage(messages.cancel)}
-                    onClick={() => this.onCancel()}
-                  >
-                    <Icon
-                      name={clearSVG}
-                      className="circled"
-                      size="30px"
-                      title={this.props.intl.formatMessage(messages.cancel)}
-                    />
-                  </Button>
-                </>
-              }
-            />
-          </Portal>
+          {this.state.isClient && (
+            <Portal node={document.getElementById('toolbar')}>
+              <Toolbar
+                pathname={this.props.pathname}
+                hideDefaultViewButtons
+                inner={
+                  <>
+                    <Button
+                      id="toolbar-save"
+                      className="save"
+                      aria-label={this.props.intl.formatMessage(messages.save)}
+                      onClick={() => this.form.current.onSubmit()}
+                      disabled={this.props.updateRequest.loading}
+                      loading={this.props.updateRequest.loading}
+                    >
+                      <Icon
+                        name={saveSVG}
+                        className="circled"
+                        size="30px"
+                        title={this.props.intl.formatMessage(messages.save)}
+                      />
+                    </Button>
+                    <Button
+                      className="cancel"
+                      aria-label={this.props.intl.formatMessage(
+                        messages.cancel,
+                      )}
+                      onClick={() => this.onCancel()}
+                    >
+                      <Icon
+                        name={clearSVG}
+                        className="circled"
+                        size="30px"
+                        title={this.props.intl.formatMessage(messages.cancel)}
+                      />
+                    </Button>
+                  </>
+                }
+              />
+            </Portal>
+          )}
         </div>
       );
     }
@@ -250,7 +245,7 @@ export default compose(
   connect(
     (state, props) => ({
       controlpanel: state.controlpanels.controlpanel,
-      cpanelRequest: state.controlpanels,
+      updateRequest: state.controlpanels.update,
       pathname: props.location.pathname,
       id: last(props.location.pathname.split('/')),
       parent: nth(props.location.pathname.split('/'), -2),
